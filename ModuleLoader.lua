@@ -20,6 +20,7 @@ local modules = {
 
 -- Loads all modules in the 'modules' table by requiring them safely.
 -- Uses pcall to catch errors during require and warns if any module fails to load.
+-- Should be called on the loading of your game to load the module scripts to use faster.
 function modules.LoadModules()
 	for _, module in ipairs(modules) do
 		if module:IsA("ModuleScript") then
@@ -35,10 +36,11 @@ function modules.LoadModules()
 	end
 end
 
+
 -- Checks if a module with the given name exists and can be required without error.
 -- @param name string - The name of the module to check.
 -- @return boolean or nil - Returns true if module loads successfully, nil if not found or error occurs.
-function modules.HasModule(name)
+function modules.HasModule(name) -- Optional function to check if certain modules exist.
 	for _, module in ipairs(modules) do
 		if module:IsA("ModuleScript") and module.Name == name then
 			local success, _ = pcall(require, module)
